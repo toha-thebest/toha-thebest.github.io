@@ -1,12 +1,33 @@
 <html>
-<head>
-<title>Index</title>
-</head>
-<body>
-<h1>Index</h1>
+  <head>
+  <title>Index</title>
+  </head>
+  <body>
+  <h1>Index</h1>
   <div data-text>
   </div>
 
-  
-</body>
+    <script>
+    (() => {
+
+  const typePhrase = (selector, text) =>
+    text.split('').reduce((promise, letter) => {
+      return promise.then(() => {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            if (document.querySelector(selector)) {
+              document.querySelector(selector).innerHTML += letter;
+            }
+
+            resolve(letter);
+          }, 500 * Math.random());
+        });
+      });
+    }, new Promise((resolve) => resolve(true)));
+
+
+  typePhrase('[data-text]', 'I\'m a web developer');
+})();
+    </script>
+  </body>
 </html>
