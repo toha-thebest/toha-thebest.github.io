@@ -3,31 +3,32 @@
   <title>Index</title>
   </head>
   <body>
-  <h1>Index</h1>
-  <div data-text>
-  </div>
+    <h1 data-header contenteditable></h1>
+    <div data-text></div>
 
     <script>
-    (() => {
+      (() => {
 
-  const typePhrase = (selector, text) =>
-    text.split('').reduce((promise, letter) => {
-      return promise.then(() => {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            if (document.querySelector(selector)) {
-              document.querySelector(selector).innerHTML += letter;
-            }
+        const typePhrase = (selector, text) =>
+          text.split('').reduce((promise, letter) => {
+           return promise.then(() => {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                if (document.querySelector(selector)) {
+                  document.querySelector(selector).focus();
+                  document.querySelector(selector).innerHTML += letter;
+                }
+                resolve(letter);
+               }, 500 * Math.random());
+            });
+          });
+         }, new Promise((resolve) => resolve(true)));
 
-            resolve(letter);
-          }, 500 * Math.random());
-        });
-      });
-    }, new Promise((resolve) => resolve(true)));
 
 
-  typePhrase('[data-text]', 'I\'m a web developer');
-})();
+        typePhrase('[data-header]', 'Hello! I\'m a web developer');
+
+      })();
     </script>
   </body>
 </html>
